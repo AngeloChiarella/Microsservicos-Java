@@ -1,5 +1,4 @@
 # Criando e testando containers Docker
-
 ## Comandos Docker
 #### Criar uma rede Docker
 ```
@@ -26,18 +25,18 @@ docker ps -a
 ```
 docker logs -f <container-id>
 ```
-
 ## Criar rede docker para sistema hr
 ```
 docker network create hr-net
 ```
 
-## Postgresql
+## Testando perfil dev com Postgresql no Docker
 ```
 docker pull postgres:12-alpine
-docker run postgres:12-alpine -p 5432:5432 --name hr-worker-pg12 --network hr-net -e POSTGRES_PASSWORD=1234567 -e POSTGRES_DB=db_hr_worker
-```
 
+docker run -p 5432:5432 --name hr-worker-pg12 --network hr-net -e POSTGRES_PASSWORD=1234567 -e POSTGRES_DB=db_hr_worker postgres:12-alpine
+docker run -p 5432:5432 --name hr-user-pg12 --network hr-net -e POSTGRES_PASSWORD=1234567 -e POSTGRES_DB=db_hr_user postgres:12-alpine
+```
 
 ## hr-config-server
 ```
@@ -52,7 +51,6 @@ mvnw clean package
 docker build -t hr-config-server:v1 .
 docker run hr-config-server:v1 -p 8888:8888 --name hr-config-server --network hr-net -e GITHUB_USER=acenelio -e GITHUB_PASS=
 ```
-
 ## hr-eureka-server
 ```
 FROM openjdk:11
@@ -66,7 +64,6 @@ mvnw clean package
 docker build -t hr-eureka-server:v1 .
 docker run hr-eureka-server:v1 -p 8761:8761 --name hr-eureka-server --network hr-net
 ```
-
 ## hr-worker
 ```
 FROM openjdk:11

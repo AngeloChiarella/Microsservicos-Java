@@ -7,13 +7,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-@RefreshScope//Atualizar os valores das variáveis
+@RefreshScope
 @Configuration
 public class AppConfig {
-    
+
     @Value("${jwt.secret}")
     private String jwtSecret;
-    
+
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
 	JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();

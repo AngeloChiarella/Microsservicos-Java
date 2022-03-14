@@ -41,9 +41,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
 	http.authorizeRequests().antMatchers(PUBLIC).permitAll().antMatchers(HttpMethod.GET, OPERATOR)
 		.hasAnyRole("OPERATOR", "ADMIN").antMatchers(ADMIN).hasRole("ADMIN").anyRequest().authenticated();
-	
+
 	http.cors().configurationSource(corsConfigurationSource());
     }
 
@@ -51,7 +52,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
 	CorsConfiguration corsConfig = new CorsConfiguration();
 	corsConfig.setAllowedOrigins(Arrays.asList("*"));
-	corsConfig.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "PATH"));
+	corsConfig.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "PATCH"));
 	corsConfig.setAllowCredentials(true);
 	corsConfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
 
